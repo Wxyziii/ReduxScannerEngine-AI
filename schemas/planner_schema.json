@@ -1,0 +1,12 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/Wxyziii/ReduxScannerEngine-AI/schemas/planner_schema.json",
+  "type": "object",
+  "required": ["schemaVersion", "prompt", "tasks"],
+  "properties": {
+    "schemaVersion": {"const": "redux-maker.planner.v1"},
+    "prompt": {"type": "string"},
+    "tasks": {"type": "array", "items": {"type": "object", "required": ["module", "target_files", "required_model_worker", "validation_steps", "risk_level", "preview_type", "required_user_approval", "output_artifacts"], "additionalProperties": false}}
+  },
+  "additionalProperties": false
+}
