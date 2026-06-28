@@ -1,0 +1,50 @@
+{
+  "schemaVersion": "redux-maker.research.v1",
+  "policy": "Short factual summaries only; no copied tutorials, forum posts, GTA files, or mod assets.",
+  "sources": [
+    {
+      "id": "gtaforums-timecycle-mods-4-rampage",
+      "url": "https://gtaforums.com/topic/874798-rampage-screen-effects/",
+      "accessed": "2026-06-29",
+      "licenseForTraining": "unknown",
+      "use": "factual-summary-only",
+      "confidence": 0.82,
+      "summary": "A community troubleshooting thread identifies timecycle_mods_4.xml and redmist sections as controlling a rampage screen effect. This supports, but does not independently prove, the task-defined timecycle 4 kill-effect route."
+    },
+    {
+      "id": "gtawrld-timecycle-mods-4-effect",
+      "url": "https://gtawrld.com/mods/239/",
+      "accessed": "2026-06-29",
+      "licenseForTraining": "unknown",
+      "use": "factual-summary-only",
+      "confidence": 0.7,
+      "summary": "A community mod page installs timecycle_mods_4.xml under the timecycle path to alter a screen effect, supporting the file-family mapping."
+    },
+    {
+      "id": "gtavillage-timecycle-guide",
+      "url": "https://gtavillage.com/gta-5/tutorials/9294-timecycle-mods-guide-custom-lighting-and-colors-in-gta-5-2026",
+      "accessed": "2026-06-29",
+      "licenseForTraining": "unknown",
+      "use": "factual-summary-only",
+      "confidence": 0.72,
+      "summary": "A current community guide maps timecycle XML and visualsettings.dat to lighting, sky, fog, exposure, post-FX, and weather controls."
+    },
+    {
+      "id": "jpexs-official",
+      "url": "https://github.com/jindrapetrik/jpexs-decompiler",
+      "accessed": "2026-06-29",
+      "licenseForTraining": "GPL-3.0-or-later application; external tool only",
+      "use": "tool-capability-summary",
+      "confidence": 0.98,
+      "summary": "The official JPEXS project supports SWF-to-XML export and XML import. Redux Maker invokes it externally and does not vendor or link its code."
+    }
+  ],
+  "localEvidence": {
+    "root": "D:/Reduxy",
+    "rawFilesCommitted": false,
+    "initialSampleGoal": 10,
+    "timecycleMods4FilesObserved": 13,
+    "conclusion": "Multiple independently named local Redux sample folders contain timecycle_mods_4.xml in kill-effect/effect-oriented paths, consistent with community research. No raw content was copied into this repository.",
+    "confidence": 0.86
+  }
+}

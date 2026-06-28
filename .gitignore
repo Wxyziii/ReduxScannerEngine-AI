@@ -1,0 +1,8 @@
+models/
+dist/
+*.onnx
+*.gguf
+*.safetensors
+*.bin
+__pycache__/
+.pytest_cache/

@@ -1,0 +1,7 @@
+{"prompt":"make purple tracers","label":"core_ypt_tracer","targetFiles":["ptfx.rpf/core.ypt"],"worker":"image","approvalRequired":true}
+{"prompt":"make hit effect red blood spray","label":"core_ypt_hit_effect","targetFiles":["ptfx.rpf/core.ypt:ptfx_blood_spray"],"worker":"image","approvalRequired":true}
+{"prompt":"remove smoke and fire particles","label":"core_ypt_particle_blank","targetFiles":["ptfx.rpf/core.ypt"],"worker":"image","approvalRequired":true}
+{"prompt":"make sky darker and foggy","label":"timecycle_sky","targetFiles":["visualsettings.dat","common/data/timecycle/*.xml"],"worker":"text_config","approvalRequired":true}
+{"prompt":"change kill effect to blue flash","label":"timecycle_kill_effect","targetFiles":["common/data/timecycle/timecycle_mods_4.xml"],"worker":"text_config","approvalRequired":true}
+{"prompt":"make minimap bars purple with hp numbers","label":"minimap_editor","targetFiles":["minimap.gfx","swf.xml"],"worker":"text_config","approvalRequired":true}
+{"prompt":"build package","label":"package_builder","targetFiles":[],"worker":"planner","approvalRequired":true}
