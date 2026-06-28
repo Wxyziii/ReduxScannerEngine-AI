@@ -19,6 +19,12 @@ class RuntimeTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as directory:
             root=Path(directory); manifest=root/"manifest.json"; manifest.write_text(json.dumps({"models":[]}),encoding="utf-8")
             with self.assertRaises(PermissionError): ModelManager(manifest,root/"models").install("missing",False)
+    def test_private_release_token_is_not_persisted_in_status(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root=Path(directory); manifest=root/"manifest.json"; manifest.write_text(json.dumps({"models":[]}),encoding="utf-8")
+            manager=ModelManager(manifest,root/"models",github_token="secret")
+            self.assertEqual(manager.status(),[])
+            self.assertNotIn("secret",json.dumps(manager.status()))
     def test_pack_recommendation(self): self.assertEqual(recommend_pack(self.hardware()),"full")
 
 

@@ -74,8 +74,9 @@ class Scheduler:
 
 
 class ModelManager:
-    def __init__(self, manifest_path: Path, model_dir: Path):
+    def __init__(self, manifest_path: Path, model_dir: Path, github_token: str | None = None):
         self.manifest_path, self.model_dir = manifest_path, model_dir
+        self.github_token = github_token
         self.manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
 
     def install(self, model_id: str, permission: bool) -> Path:
@@ -83,7 +84,10 @@ class ModelManager:
         model = next((item for item in self.manifest["models"] if item["id"] == model_id), None)
         if not model: raise KeyError(model_id)
         self.model_dir.mkdir(parents=True, exist_ok=True); destination=self.model_dir/model["fileName"]; partial=destination.with_suffix(destination.suffix+".partial")
-        with urllib.request.urlopen(model["downloadUrl"], timeout=120) as response, partial.open("wb") as output: shutil.copyfileobj(response, output)
+        request = urllib.request.Request(model["downloadUrl"])
+        if self.github_token:
+            request.add_header("Authorization", f"Bearer {self.github_token}")
+        with urllib.request.urlopen(request, timeout=120) as response, partial.open("wb") as output: shutil.copyfileobj(response, output)
         actual=hashlib.sha256(partial.read_bytes()).hexdigest()
         if actual != model["checksumSha256"]: partial.unlink(missing_ok=True); raise ValueError("model checksum mismatch")
         partial.replace(destination); return destination
