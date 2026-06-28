@@ -6,3 +6,4 @@ dist/
 *.bin
 __pycache__/
 .pytest_cache/
+.tools/

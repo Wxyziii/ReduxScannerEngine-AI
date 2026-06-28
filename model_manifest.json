@@ -1,0 +1,22 @@
+{
+  "schemaVersion": "redux-maker.model-manifest.v1",
+  "releaseTag": "models-v1.0.0",
+  "defaultResourceBudgetPercent": 90,
+  "models": [
+    {
+      "id": "planner-router-v1", "modelName": "Redux Planner Router v1", "purpose": "Strict JSON task planning and routing", "sourceUrl": "https://github.com/Wxyziii/ReduxScannerEngine-AI", "license": "MIT", "redistributionStatus": "allowed-original-work", "backendRuntime": "Python built-in local runtime", "hardwareTier": "cpu-lite", "ramGb": 0.1, "vramGb": 0, "checksumSha256": "4ea909d212a87697077d4e7230a8d7fcfb8f482087eb68e494b4c1d71855c15c", "downloadUrl": "https://github.com/Wxyziii/ReduxScannerEngine-AI/releases/download/models-v1.0.0/planner-router-v1.json", "fileName": "planner-router-v1.json", "required": true
+    },
+    {
+      "id": "classifier-router-v1", "modelName": "Redux Classifier Router v1", "purpose": "Prompt-to-module classification", "sourceUrl": "https://github.com/Wxyziii/ReduxScannerEngine-AI", "license": "MIT", "redistributionStatus": "allowed-original-work", "backendRuntime": "Python weighted-token classifier", "hardwareTier": "cpu-lite", "ramGb": 0.1, "vramGb": 0, "checksumSha256": "0a9b56195a7eb04bb3ada6b6f05eb1ba6a24f2f9445653a01813746d4118a4ec", "downloadUrl": "https://github.com/Wxyziii/ReduxScannerEngine-AI/releases/download/models-v1.0.0/classifier-router-v1.json", "fileName": "classifier-router-v1.json", "required": true
+    },
+    {
+      "id": "text-config-v1", "modelName": "Redux Text Config v1", "purpose": "Safe XML DAT timecycle proposals", "sourceUrl": "https://github.com/Wxyziii/ReduxScannerEngine-AI", "license": "MIT", "redistributionStatus": "allowed-original-work", "backendRuntime": "Python local proposal worker", "hardwareTier": "cpu-lite", "ramGb": 0.1, "vramGb": 0, "checksumSha256": "db03bfecc6d7659d67d8c672fe89148ab0e5031ddf60e2db48222562c05ab244", "downloadUrl": "https://github.com/Wxyziii/ReduxScannerEngine-AI/releases/download/models-v1.0.0/text-config-v1.json", "fileName": "text-config-v1.json", "required": true
+    },
+    {
+      "id": "image-worker-v1", "modelName": "Redux Procedural Image Worker v1", "purpose": "Exact-size tracer Hit Effect icon and blank texture generation", "sourceUrl": "https://github.com/Wxyziii/ReduxScannerEngine-AI", "license": "MIT", "redistributionStatus": "allowed-original-work", "backendRuntime": "Python procedural RGBA generator", "hardwareTier": "cpu-lite", "ramGb": 0.25, "vramGb": 0, "checksumSha256": "4fe8e0e3aab11723b4b91d0b97a0305b0a6af8413c99c00c5c4cb0e2c2007fe1", "downloadUrl": "https://github.com/Wxyziii/ReduxScannerEngine-AI/releases/download/models-v1.0.0/image-worker-v1.json", "fileName": "image-worker-v1.json", "required": true
+    },
+    {
+      "id": "vision-validator-v1", "modelName": "Redux Vision Validator v1", "purpose": "Prompt color reference and dimension validation", "sourceUrl": "https://github.com/Wxyziii/ReduxScannerEngine-AI", "license": "MIT", "redistributionStatus": "allowed-original-work", "backendRuntime": "Python local image metrics", "hardwareTier": "cpu-lite", "ramGb": 0.25, "vramGb": 0, "checksumSha256": "05a17b674c4cb98c75c75475057e3aef99c24432eda61e5a13452d785ccd89ba", "downloadUrl": "https://github.com/Wxyziii/ReduxScannerEngine-AI/releases/download/models-v1.0.0/vision-validator-v1.json", "fileName": "vision-validator-v1.json", "required": true
+    }
+  ]
+}
