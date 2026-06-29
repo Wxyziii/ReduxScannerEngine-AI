@@ -91,9 +91,9 @@ def generate(prompt: str, width: int, height: int, output: Path, reference: Path
     return {"schemaVersion": "redux-maker.image.v1", "prompt": prompt, "referenceUsed": reference is not None, "width": width, "height": height, "format": "RGBA8_PNG", "output": str(output), "sha256": hashlib.sha256(output.read_bytes()).hexdigest()}
 
 
-def generate_blank(width: int, height: int, output: Path, alpha_supported: bool = True) -> dict:
+def generate_blank(width: int, height: int, output: Path, alpha_supported: bool = True, alpha_value: int = 0) -> dict:
     output.parent.mkdir(parents=True, exist_ok=True)
-    pixel = b"\x00\x00\x00\x00" if alpha_supported else b"\x00\x00\x00\xff"
+    alpha_value=max(0,min(255,alpha_value));pixel = bytes((0,0,0,alpha_value)) if alpha_supported else b"\x00\x00\x00\xff"
     output.write_bytes(encode_png(width, height, pixel * width * height))
     return {"width": width, "height": height, "entryPreservationRequired": True, "mode": "transparent" if alpha_supported else "black_low_energy", "output": str(output)}
 
@@ -120,8 +120,8 @@ def _prompt_color(prompt: str, seed: bytes) -> tuple[int, int, int]:
 
 if __name__ == "__main__":
     import argparse
-    parser=argparse.ArgumentParser(); parser.add_argument("--prompt",default=""); parser.add_argument("--width",type=int,required=True); parser.add_argument("--height",type=int,required=True); parser.add_argument("--out",type=Path,required=True); parser.add_argument("--reference",type=Path); parser.add_argument("--blank",action="store_true"); parser.add_argument("--no-alpha",action="store_true"); parser.add_argument("--opaque-background",action="store_true"); parser.add_argument("--model-path"); parser.add_argument("--negative-prompt",default=""); parser.add_argument("--strength",type=float,default=.65); parser.add_argument("--seed",type=int,default=0); args=parser.parse_args()
-    if args.blank: result=generate_blank(args.width,args.height,args.out,not args.no_alpha)
+    parser=argparse.ArgumentParser(); parser.add_argument("--prompt",default=""); parser.add_argument("--width",type=int,required=True); parser.add_argument("--height",type=int,required=True); parser.add_argument("--out",type=Path,required=True); parser.add_argument("--reference",type=Path); parser.add_argument("--blank",action="store_true"); parser.add_argument("--no-alpha",action="store_true"); parser.add_argument("--alpha-value",type=int,default=0); parser.add_argument("--opaque-background",action="store_true"); parser.add_argument("--model-path"); parser.add_argument("--negative-prompt",default=""); parser.add_argument("--strength",type=float,default=.65); parser.add_argument("--seed",type=int,default=0); args=parser.parse_args()
+    if args.blank: result=generate_blank(args.width,args.height,args.out,not args.no_alpha,args.alpha_value)
     elif args.model_path: result=generate_with_diffusers(args.prompt,args.width,args.height,args.out,args.model_path,args.reference,args.negative_prompt,args.strength,args.seed,not args.opaque_background)
     else: raise SystemExit("image_model_required: configure --model-path; procedural generation is test/fallback-only")
     import json
