@@ -1,0 +1,173 @@
+{
+  "schemaVersion": "redux-maker.classifier-evaluation.v1",
+  "baseModel": "BAAI/bge-small-en-v1.5",
+  "baseModelRevision": "5c38ec7c405ec4b44b94cc5a9bb96e735b38267a",
+  "baseModelLicense": "MIT",
+  "classifier": "multinomial logistic regression ONNX head",
+  "featureCount": 384,
+  "datasetSha256": "ca3e29bae673ddd3f328c1ca40df8ad7c92214b174230250d307b8b20d0cce70",
+  "splitCounts": {
+    "train": 1536,
+    "validation": 192,
+    "test": 192
+  },
+  "validationAccuracy": 1.0,
+  "testAccuracy": 1.0,
+  "labels": [
+    "core_ypt_hit_effect",
+    "core_ypt_particle_blank",
+    "core_ypt_tracer",
+    "minimap_editor",
+    "package_builder",
+    "timecycle_kill_effect",
+    "timecycle_sky",
+    "validation"
+  ],
+  "testClassificationReport": {
+    "core_ypt_hit_effect": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1-score": 1.0,
+      "support": 24.0
+    },
+    "core_ypt_particle_blank": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1-score": 1.0,
+      "support": 24.0
+    },
+    "core_ypt_tracer": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1-score": 1.0,
+      "support": 24.0
+    },
+    "minimap_editor": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1-score": 1.0,
+      "support": 24.0
+    },
+    "package_builder": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1-score": 1.0,
+      "support": 24.0
+    },
+    "timecycle_kill_effect": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1-score": 1.0,
+      "support": 24.0
+    },
+    "timecycle_sky": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1-score": 1.0,
+      "support": 24.0
+    },
+    "validation": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1-score": 1.0,
+      "support": 24.0
+    },
+    "accuracy": 1.0,
+    "macro avg": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1-score": 1.0,
+      "support": 192.0
+    },
+    "weighted avg": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1-score": 1.0,
+      "support": 192.0
+    }
+  },
+  "testConfusionMatrix": [
+    [
+      24,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    [
+      0,
+      24,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+      24,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+      0,
+      24,
+      0,
+      0,
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+      0,
+      0,
+      24,
+      0,
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+      0,
+      0,
+      0,
+      24,
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      24,
+      0
+    ],
+    [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      24
+    ]
+  ],
+  "modelSha256": "9ba52a76df88557aef79d182f3c52bc9baadc48814d69ed70773dad36e6b88a4",
+  "labelsSha256": "3de3c5c975adfdae232118ce24fd2bb6bc05f2f80f4343852921d356a6c764b9"
+}

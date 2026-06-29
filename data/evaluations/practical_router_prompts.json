@@ -1,0 +1,17 @@
+{
+  "schemaVersion": "redux-maker.practical-router-evaluation.v1",
+  "backend": "BAAI/bge-small-en-v1.5 plus Redux ONNX classifier head",
+  "baseModelRevision": "5c38ec7c405ec4b44b94cc5a9bb96e735b38267a",
+  "headSha256": "9ba52a76df88557aef79d182f3c52bc9baadc48814d69ed70773dad36e6b88a4",
+  "allPassed": true,
+  "cases": [
+    {"prompt":"make purple tracers","expected":"core_ypt_tracer","actual":"core_ypt_tracer","confidence":0.9811},
+    {"prompt":"make hit effect red blood spray","expected":"core_ypt_hit_effect","actual":"core_ypt_hit_effect","confidence":0.9932},
+    {"prompt":"remove smoke and fire particles","expected":"core_ypt_particle_blank","actual":"core_ypt_particle_blank","confidence":0.9966},
+    {"prompt":"make sky darker and foggy","expected":"timecycle_sky","actual":"timecycle_sky","confidence":0.9913},
+    {"prompt":"change kill effect to blue flash","expected":"timecycle_kill_effect","actual":"timecycle_kill_effect","confidence":0.9768},
+    {"prompt":"make minimap bars purple with hp numbers","expected":"minimap_editor","actual":"minimap_editor","confidence":0.9943},
+    {"prompt":"build package","expected":"package_builder","actual":"package_builder","confidence":0.905},
+    {"prompt":"verify the staged output","expected":"validation","actual":"validation","confidence":0.7513}
+  ]
+}

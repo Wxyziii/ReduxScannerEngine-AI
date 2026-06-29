@@ -1,0 +1,23 @@
+{
+  "schemaVersion": "redux-maker.dataset-report.v1",
+  "seed": 20260629,
+  "source": "synthetic-from-cited-factual-knowledgebase",
+  "rawCommunityTextIncluded": false,
+  "counts": {
+    "train": 1536,
+    "validation": 192,
+    "test": 192,
+    "total": 1920
+  },
+  "labels": {
+    "core_ypt_tracer": 240,
+    "core_ypt_hit_effect": 240,
+    "core_ypt_particle_blank": 240,
+    "timecycle_sky": 240,
+    "timecycle_kill_effect": 240,
+    "minimap_editor": 240,
+    "package_builder": 240,
+    "validation": 240
+  },
+  "duplicateIdLeakage": false
+}

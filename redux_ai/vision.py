@@ -8,6 +8,32 @@ import zlib
 COLORS = {"purple": (160, 40, 255), "red": (255, 35, 35), "blue": (40, 100, 255), "green": (40, 255, 100), "white": (255, 255, 255)}
 
 
+def validate_with_smolvlm(image: Path, prompt: str, model_path: str, reference: Path | None = None) -> dict:
+    """Use the installed local SmolVLM2 checkpoint for semantic validation."""
+    try:
+        import torch
+        from PIL import Image
+        from transformers import AutoProcessor, AutoModelForImageTextToText
+    except ImportError as error:
+        raise RuntimeError("vision_runtime_missing: repair the SmolVLM2/Transformers installation in Model Manager") from error
+    processor=AutoProcessor.from_pretrained(model_path)
+    model=AutoModelForImageTextToText.from_pretrained(model_path,torch_dtype=torch.bfloat16 if torch.cuda.is_available() else torch.float32,device_map="auto" if torch.cuda.is_available() else None)
+    images=[Image.open(image).convert("RGB")]
+    request=f"Assess whether this generated Redux Maker visual matches the request: {prompt!r}. Reply with strict JSON containing match (boolean), score (0 to 1), and concise reason. Do not assess game-file dimensions or binary format."
+    if reference:
+        images.append(Image.open(reference).convert("RGB")); request += " The second image is the user reference; compare style and color consistency."
+    messages=[{"role":"user","content":[*[{"type":"image"} for _ in images],{"type":"text","text":request}]}]
+    text=processor.apply_chat_template(messages,add_generation_prompt=True)
+    inputs=processor(text=text,images=images,return_tensors="pt").to(model.device)
+    generated=model.generate(**inputs,max_new_tokens=160,do_sample=False)
+    response=processor.batch_decode(generated[:,inputs["input_ids"].shape[1]:],skip_special_tokens=True)[0].strip()
+    import json
+    try: decision=json.loads(response)
+    except json.JSONDecodeError as error: raise RuntimeError(f"vision_model_invalid_json: {response[:200]}") from error
+    if not isinstance(decision.get("match"),bool) or not isinstance(decision.get("score"),(int,float)): raise RuntimeError("vision_model_invalid_schema")
+    return {"schemaVersion":"redux-maker.vision.v2","backend":"SmolVLM2","model":model_path,"status":"passed" if decision["match"] and float(decision["score"])>=.55 else "rejected","score":round(float(decision["score"]),4),"reason":str(decision.get("reason","")),"referenceUsed":reference is not None,"engineMetadataValidationStillRequired":True}
+
+
 def validate(image: Path, prompt: str, expected_width: int, expected_height: int, reference: Path | None = None) -> dict:
     width, height, rgba = decode_rgba_png(image.read_bytes())
     opaque = [(rgba[i], rgba[i+1], rgba[i+2]) for i in range(0, len(rgba), 4) if rgba[i+3] > 16]
@@ -20,7 +46,7 @@ def validate(image: Path, prompt: str, expected_width: int, expected_height: int
         rw, rh, rrgba = decode_rgba_png(reference.read_bytes())
         reference_score = 0.0 if (rw, rh) != (width, height) else _byte_similarity(rgba, rrgba)
     score = color_score * (1.0 if dimension_ok else 0.0) * (reference_score if reference_score is not None else 1.0)
-    return {"schemaVersion": "redux-maker.vision.v1", "status": "passed" if score >= 0.55 else "rejected", "score": round(score, 4), "dimensionOk": dimension_ok, "promptColorScore": round(color_score, 4), "referenceScore": None if reference_score is None else round(reference_score, 4), "averageRgb": average, "engineMetadataValidationStillRequired": True}
+    return {"schemaVersion": "redux-maker.vision.v1", "backend":"deterministic_low_end_fallback", "status": "passed" if score >= 0.55 else "rejected", "score": round(score, 4), "dimensionOk": dimension_ok, "promptColorScore": round(color_score, 4), "referenceScore": None if reference_score is None else round(reference_score, 4), "averageRgb": average, "engineMetadataValidationStillRequired": True}
 
 
 def decode_rgba_png(data: bytes) -> tuple[int, int, bytes]:

@@ -6,6 +6,51 @@ import struct
 import zlib
 
 
+def generate_with_diffusers(
+    prompt: str,
+    width: int,
+    height: int,
+    output: Path,
+    model_path: str,
+    reference: Path | None = None,
+    negative_prompt: str = "",
+    strength: float = 0.65,
+    seed: int = 0,
+) -> dict:
+    """Run a real local Diffusers model; never silently fall back to procedural output."""
+    if not (1 <= width <= 4096 and 1 <= height <= 4096):
+        raise ValueError("dimensions outside safe range")
+    try:
+        import torch
+        from diffusers import AutoPipelineForImage2Image, DiffusionPipeline
+        from PIL import Image
+    except ImportError as error:
+        raise RuntimeError("diffusers_runtime_missing: install the selected image-model runtime or repair it in Model Manager") from error
+    dtype = torch.bfloat16 if torch.cuda.is_available() else torch.float32
+    device = "cuda" if torch.cuda.is_available() else "cpu"
+    generator = torch.Generator(device="cpu").manual_seed(seed)
+    if reference:
+        pipeline = AutoPipelineForImage2Image.from_pretrained(model_path, torch_dtype=dtype)
+        pipeline = pipeline.to(device)
+        source = Image.open(reference).convert("RGB").resize((width, height), Image.Resampling.LANCZOS)
+        image = pipeline(prompt=prompt, negative_prompt=negative_prompt or None, image=source, strength=max(0.05, min(1.0, strength)), generator=generator, width=width, height=height).images[0]
+        mode = "reference_edit"
+    else:
+        pipeline = DiffusionPipeline.from_pretrained(model_path, torch_dtype=dtype)
+        pipeline = pipeline.to(device)
+        image = pipeline(prompt=prompt, negative_prompt=negative_prompt or None, generator=generator, width=width, height=height).images[0]
+        mode = "text_to_image"
+    image = image.convert("RGBA").resize((width, height), Image.Resampling.LANCZOS)
+    output.parent.mkdir(parents=True, exist_ok=True)
+    temporary = output.with_suffix(output.suffix + ".partial")
+    image.save(temporary, format="PNG")
+    if png_dimensions(temporary.read_bytes()) != (width, height):
+        temporary.unlink(missing_ok=True)
+        raise RuntimeError("generated_texture_wrong_size")
+    temporary.replace(output)
+    return {"schemaVersion":"redux-maker.image.v2","backend":"diffusers","model":model_path,"mode":mode,"prompt":prompt,"negativePrompt":negative_prompt,"referenceUsed":reference is not None,"width":width,"height":height,"format":"RGBA8_PNG","output":str(output),"sha256":hashlib.sha256(output.read_bytes()).hexdigest()}
+
+
 def generate(prompt: str, width: int, height: int, output: Path, reference: Path | None = None, transparent: bool = True) -> dict:
     if not (1 <= width <= 4096 and 1 <= height <= 4096):
         raise ValueError("dimensions outside safe range")
@@ -53,7 +98,9 @@ def _prompt_color(prompt: str, seed: bytes) -> tuple[int, int, int]:
 
 if __name__ == "__main__":
     import argparse
-    parser=argparse.ArgumentParser(); parser.add_argument("--prompt",default=""); parser.add_argument("--width",type=int,required=True); parser.add_argument("--height",type=int,required=True); parser.add_argument("--out",type=Path,required=True); parser.add_argument("--reference",type=Path); parser.add_argument("--blank",action="store_true"); parser.add_argument("--no-alpha",action="store_true"); args=parser.parse_args()
-    result=generate_blank(args.width,args.height,args.out,not args.no_alpha) if args.blank else generate(args.prompt,args.width,args.height,args.out,args.reference)
+    parser=argparse.ArgumentParser(); parser.add_argument("--prompt",default=""); parser.add_argument("--width",type=int,required=True); parser.add_argument("--height",type=int,required=True); parser.add_argument("--out",type=Path,required=True); parser.add_argument("--reference",type=Path); parser.add_argument("--blank",action="store_true"); parser.add_argument("--no-alpha",action="store_true"); parser.add_argument("--model-path"); parser.add_argument("--negative-prompt",default=""); parser.add_argument("--strength",type=float,default=.65); parser.add_argument("--seed",type=int,default=0); args=parser.parse_args()
+    if args.blank: result=generate_blank(args.width,args.height,args.out,not args.no_alpha)
+    elif args.model_path: result=generate_with_diffusers(args.prompt,args.width,args.height,args.out,args.model_path,args.reference,args.negative_prompt,args.strength,args.seed)
+    else: raise SystemExit("image_model_required: configure --model-path; procedural generation is test/fallback-only")
     import json
     print(json.dumps(result))
