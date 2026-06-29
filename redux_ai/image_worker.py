@@ -49,3 +49,11 @@ def _prompt_color(prompt: str, seed: bytes) -> tuple[int, int, int]:
     colors = {"purple": (160, 40, 255), "red": (255, 35, 35), "blue": (40, 100, 255), "green": (40, 255, 100), "white": (255, 255, 255)}
     lower = prompt.casefold()
     return next((value for name, value in colors.items() if name in lower), (seed[0], seed[1], seed[2]))
+
+
+if __name__ == "__main__":
+    import argparse
+    parser=argparse.ArgumentParser(); parser.add_argument("--prompt",default=""); parser.add_argument("--width",type=int,required=True); parser.add_argument("--height",type=int,required=True); parser.add_argument("--out",type=Path,required=True); parser.add_argument("--reference",type=Path); parser.add_argument("--blank",action="store_true"); parser.add_argument("--no-alpha",action="store_true"); args=parser.parse_args()
+    result=generate_blank(args.width,args.height,args.out,not args.no_alpha) if args.blank else generate(args.prompt,args.width,args.height,args.out,args.reference)
+    import json
+    print(json.dumps(result))
