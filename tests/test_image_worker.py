@@ -1,12 +1,15 @@
 import tempfile
 from pathlib import Path
 import unittest
-from redux_ai.image_worker import diffusion_dimensions, generate, generate_blank, png_dimensions
+from redux_ai.image_worker import diffusion_dimensions, generate, generate_blank, png_dimensions, remove_border_background
 
 
 class ImageWorkerTests(unittest.TestCase):
     def test_diffusion_work_size_preserves_vertical_tracer_aspect(self):
         width,height=diffusion_dimensions(64,256);self.assertEqual(width*4,height);self.assertGreaterEqual(width*height,500*500)
+    def test_border_background_becomes_alpha_without_erasing_effect(self):
+        from PIL import Image
+        image=Image.new('RGB',(8,8),(245,245,245));image.putpixel((4,4),(255,0,0));result=remove_border_background(image);self.assertEqual(result.getpixel((0,0))[3],0);self.assertGreater(result.getpixel((4,4))[3],200)
     def test_exact_tracer_and_hit_effect_dimensions(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
