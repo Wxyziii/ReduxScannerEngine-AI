@@ -68,3 +68,15 @@ def decode_rgba_png(data: bytes) -> tuple[int, int, bytes]:
 
 def _byte_similarity(left: bytes, right: bytes) -> float:
     return max(0.0, 1.0 - sum(abs(a-b) for a,b in zip(left,right)) / (255.0 * max(len(left), 1)))
+
+
+def main() -> None:
+    import argparse, json
+    parser=argparse.ArgumentParser();parser.add_argument("--image",type=Path,required=True);parser.add_argument("--prompt",required=True);parser.add_argument("--model-path");parser.add_argument("--reference",type=Path);parser.add_argument("--expected-width",type=int);parser.add_argument("--expected-height",type=int);parser.add_argument("--deterministic-fallback",action="store_true");args=parser.parse_args()
+    if args.model_path and not args.deterministic_fallback: result=validate_with_smolvlm(args.image,args.prompt,args.model_path,args.reference)
+    elif args.expected_width and args.expected_height: result=validate(args.image,args.prompt,args.expected_width,args.expected_height,args.reference)
+    else: raise SystemExit("vision_model_or_explicit_fallback_dimensions_required")
+    print(json.dumps(result))
+
+
+if __name__ == "__main__": main()

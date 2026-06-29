@@ -1,10 +1,12 @@
 import tempfile
 from pathlib import Path
 import unittest
-from redux_ai.image_worker import generate, generate_blank, png_dimensions
+from redux_ai.image_worker import diffusion_dimensions, generate, generate_blank, png_dimensions
 
 
 class ImageWorkerTests(unittest.TestCase):
+    def test_diffusion_work_size_preserves_vertical_tracer_aspect(self):
+        width,height=diffusion_dimensions(64,256);self.assertEqual(width*4,height);self.assertGreaterEqual(width*height,500*500)
     def test_exact_tracer_and_hit_effect_dimensions(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)

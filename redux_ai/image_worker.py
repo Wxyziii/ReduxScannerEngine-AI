@@ -4,6 +4,12 @@ import hashlib
 from pathlib import Path
 import struct
 import zlib
+import math
+
+
+def diffusion_dimensions(width: int, height: int, target_pixels: int = 512 * 512) -> tuple[int, int]:
+    scale = math.sqrt(target_pixels / max(width * height, 1))
+    return max(64, round(width * scale / 8) * 8), max(64, round(height * scale / 8) * 8)
 
 
 def generate_with_diffusers(
@@ -29,18 +35,19 @@ def generate_with_diffusers(
     dtype = torch.float16 if torch.cuda.is_available() else torch.float32
     device = "cuda" if torch.cuda.is_available() else "cpu"
     generator = torch.Generator(device="cpu").manual_seed(seed)
+    generation_width, generation_height = diffusion_dimensions(width, height)
     if reference:
         pipeline = AutoPipelineForImage2Image.from_pretrained(model_path, torch_dtype=dtype, variant="fp16" if torch.cuda.is_available() else None)
         if torch.cuda.is_available(): pipeline.enable_model_cpu_offload()
         else: pipeline = pipeline.to(device)
-        source = Image.open(reference).convert("RGB").resize((width, height), Image.Resampling.LANCZOS)
-        image = pipeline(prompt=prompt, negative_prompt=negative_prompt or None, image=source, strength=max(0.05, min(1.0, strength)), generator=generator, width=width, height=height).images[0]
+        source = Image.open(reference).convert("RGB").resize((generation_width, generation_height), Image.Resampling.LANCZOS)
+        image = pipeline(prompt=prompt, negative_prompt=negative_prompt or None, image=source, strength=max(0.05, min(1.0, strength)), generator=generator, width=generation_width, height=generation_height).images[0]
         mode = "reference_edit"
     else:
         pipeline = DiffusionPipeline.from_pretrained(model_path, torch_dtype=dtype, variant="fp16" if torch.cuda.is_available() else None)
         if torch.cuda.is_available(): pipeline.enable_model_cpu_offload()
         else: pipeline = pipeline.to(device)
-        image = pipeline(prompt=prompt, negative_prompt=negative_prompt or None, generator=generator, width=width, height=height).images[0]
+        image = pipeline(prompt=prompt, negative_prompt=negative_prompt or None, generator=generator, width=generation_width, height=generation_height).images[0]
         mode = "text_to_image"
     image = image.convert("RGBA").resize((width, height), Image.Resampling.LANCZOS)
     output.parent.mkdir(parents=True, exist_ok=True)
@@ -50,7 +57,7 @@ def generate_with_diffusers(
         temporary.unlink(missing_ok=True)
         raise RuntimeError("generated_texture_wrong_size")
     temporary.replace(output)
-    return {"schemaVersion":"redux-maker.image.v2","backend":"diffusers","model":model_path,"mode":mode,"prompt":prompt,"negativePrompt":negative_prompt,"referenceUsed":reference is not None,"width":width,"height":height,"format":"RGBA8_PNG","output":str(output),"sha256":hashlib.sha256(output.read_bytes()).hexdigest()}
+    return {"schemaVersion":"redux-maker.image.v2","backend":"diffusers","model":model_path,"mode":mode,"prompt":prompt,"negativePrompt":negative_prompt,"referenceUsed":reference is not None,"generationWidth":generation_width,"generationHeight":generation_height,"width":width,"height":height,"format":"RGBA8_PNG","output":str(output),"sha256":hashlib.sha256(output.read_bytes()).hexdigest()}
 
 
 def generate(prompt: str, width: int, height: int, output: Path, reference: Path | None = None, transparent: bool = True) -> dict:
