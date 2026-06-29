@@ -15,7 +15,7 @@ def classify_onnx(prompt: str, encoder_path: Path, head_path: Path, labels_path:
         raise RuntimeError("onnx_classifier_runtime_missing: repair ONNX Runtime and Transformers") from error
     tokenizer=AutoTokenizer.from_pretrained(encoder_path,local_files_only=True)
     tokens=tokenizer([prompt],padding=True,truncation=True,max_length=128,return_tensors="np")
-    encoder_file=encoder_path/"onnx"/"model.onnx" if encoder_path.is_dir() else encoder_path
+    encoder_file=(encoder_path/"onnx"/"model.onnx" if (encoder_path/"onnx"/"model.onnx").is_file() else encoder_path/"model.onnx") if encoder_path.is_dir() else encoder_path
     encoder=ort.InferenceSession(str(encoder_file),providers=["CPUExecutionProvider"])
     encoder_inputs={item.name:tokens[item.name].astype(np.int64) for item in encoder.get_inputs() if item.name in tokens}
     hidden=encoder.run(None,encoder_inputs)[0];embedding=hidden[:,0,:].astype(np.float32);embedding/=np.linalg.norm(embedding,axis=1,keepdims=True).clip(min=1e-12)
@@ -39,3 +39,11 @@ def classify(prompt: str, weights: dict[str, dict[str, float]]) -> dict:
         label, score = "validation", 0.1
     total = sum(max(value, 0.0) for value in scores.values()) or score
     return {"schemaVersion": "redux-maker.classifier.v1", "label": label, "confidence": round(min(1.0, score / max(total, score)), 4), "scores": scores}
+
+
+def main() -> None:
+    import argparse
+    parser=argparse.ArgumentParser();parser.add_argument("--prompt",required=True);parser.add_argument("--encoder-path",type=Path,required=True);parser.add_argument("--head-path",type=Path,required=True);parser.add_argument("--labels-path",type=Path,required=True);args=parser.parse_args();print(json.dumps(classify_onnx(args.prompt,args.encoder_path,args.head_path,args.labels_path)))
+
+
+if __name__ == "__main__": main()
