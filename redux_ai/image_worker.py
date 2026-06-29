@@ -26,18 +26,20 @@ def generate_with_diffusers(
         from PIL import Image
     except ImportError as error:
         raise RuntimeError("diffusers_runtime_missing: install the selected image-model runtime or repair it in Model Manager") from error
-    dtype = torch.bfloat16 if torch.cuda.is_available() else torch.float32
+    dtype = torch.float16 if torch.cuda.is_available() else torch.float32
     device = "cuda" if torch.cuda.is_available() else "cpu"
     generator = torch.Generator(device="cpu").manual_seed(seed)
     if reference:
-        pipeline = AutoPipelineForImage2Image.from_pretrained(model_path, torch_dtype=dtype)
-        pipeline = pipeline.to(device)
+        pipeline = AutoPipelineForImage2Image.from_pretrained(model_path, torch_dtype=dtype, variant="fp16" if torch.cuda.is_available() else None)
+        if torch.cuda.is_available(): pipeline.enable_model_cpu_offload()
+        else: pipeline = pipeline.to(device)
         source = Image.open(reference).convert("RGB").resize((width, height), Image.Resampling.LANCZOS)
         image = pipeline(prompt=prompt, negative_prompt=negative_prompt or None, image=source, strength=max(0.05, min(1.0, strength)), generator=generator, width=width, height=height).images[0]
         mode = "reference_edit"
     else:
-        pipeline = DiffusionPipeline.from_pretrained(model_path, torch_dtype=dtype)
-        pipeline = pipeline.to(device)
+        pipeline = DiffusionPipeline.from_pretrained(model_path, torch_dtype=dtype, variant="fp16" if torch.cuda.is_available() else None)
+        if torch.cuda.is_available(): pipeline.enable_model_cpu_offload()
+        else: pipeline = pipeline.to(device)
         image = pipeline(prompt=prompt, negative_prompt=negative_prompt or None, generator=generator, width=width, height=height).images[0]
         mode = "text_to_image"
     image = image.convert("RGBA").resize((width, height), Image.Resampling.LANCZOS)
