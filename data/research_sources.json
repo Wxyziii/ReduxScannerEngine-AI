@@ -37,6 +37,51 @@
       "use": "tool-capability-summary",
       "confidence": 0.98,
       "summary": "The official JPEXS project supports SWF-to-XML export and XML import. Redux Maker invokes it externally and does not vendor or link its code."
+    },
+    {
+      "id": "jpexs-commandline-official",
+      "url": "https://github.com/jindrapetrik/jpexs-decompiler/wiki/Commandline-arguments",
+      "accessed": "2026-06-30",
+      "licenseForTraining": "documentation summary only",
+      "use": "factual-summary-only",
+      "confidence": 0.98,
+      "summary": "The official command-line documentation records automated SWF export and import operations, supporting an external-process integration rather than a bundled native GFX writer."
+    },
+    {
+      "id": "bge-small-model-card",
+      "url": "https://huggingface.co/BAAI/bge-small-en-v1.5",
+      "accessed": "2026-06-30",
+      "licenseForTraining": "MIT",
+      "use": "model-capability-and-license-summary",
+      "confidence": 0.99,
+      "summary": "The upstream BGE small English embedding model is MIT licensed and suitable for sentence embedding used by the local classifier head."
+    },
+    {
+      "id": "qwen3-gguf-model-card",
+      "url": "https://huggingface.co/Qwen/Qwen3-0.6B-GGUF",
+      "accessed": "2026-06-30",
+      "licenseForTraining": "Apache-2.0",
+      "use": "model-capability-and-license-summary",
+      "confidence": 0.99,
+      "summary": "The upstream Qwen3 GGUF release provides a compact Apache-2.0 model compatible with the local llama.cpp planner route."
+    },
+    {
+      "id": "smolvlm2-model-card",
+      "url": "https://huggingface.co/HuggingFaceTB/SmolVLM2-2.2B-Instruct",
+      "accessed": "2026-06-30",
+      "licenseForTraining": "Apache-2.0",
+      "use": "model-capability-and-license-summary",
+      "confidence": 0.99,
+      "summary": "The upstream SmolVLM2 model card identifies an Apache-2.0 vision-language model usable for local prompt/image consistency checks."
+    },
+    {
+      "id": "ssd1b-model-card",
+      "url": "https://huggingface.co/segmind/SSD-1B",
+      "accessed": "2026-06-30",
+      "licenseForTraining": "Apache-2.0",
+      "use": "model-capability-and-license-summary",
+      "confidence": 0.99,
+      "summary": "The upstream SSD-1B model card records an Apache-2.0 diffusion model distributed through the Hugging Face registry for local image generation."
     }
   ],
   "localEvidence": {
@@ -44,6 +89,7 @@
     "rawFilesCommitted": false,
     "initialSampleGoal": 10,
     "timecycleMods4FilesObserved": 13,
+    "evidenceBearingSamplesReviewed": 10,
     "conclusion": "Multiple independently named local Redux sample folders contain timecycle_mods_4.xml in kill-effect/effect-oriented paths, consistent with community research. No raw content was copied into this repository.",
     "confidence": 0.86
   }

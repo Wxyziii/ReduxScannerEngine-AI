@@ -1,0 +1,21 @@
+{
+  "schemaVersion": "redux-maker.research-conflicts.v1",
+  "scanDate": "2026-06-30",
+  "root": "D:/Reduxy",
+  "rawFilesCommitted": false,
+  "selection": "First ten evidence-bearing folders after the first ten directory names contained no target evidence; no file contents copied.",
+  "samples": [
+    {"sample":"Czerwone anime","timecycleMods4":true,"coreYpt":false,"minimap":false},
+    {"sample":"ESWU REDUX (#2 GRAY)","timecycleMods4":false,"coreYpt":false,"minimap":true},
+    {"sample":"Fioletowy Redux","timecycleMods4":true,"coreYpt":false,"minimap":true},
+    {"sample":"Ichigo Black","timecycleMods4":true,"coreYpt":false,"minimap":true},
+    {"sample":"minimap","timecycleMods4":false,"coreYpt":false,"minimap":true},
+    {"sample":"Niebieski","timecycleMods4":false,"coreYpt":true,"minimap":true},
+    {"sample":"NOWY REDUKS","timecycleMods4":true,"coreYpt":false,"minimap":true},
+    {"sample":"nowyreduks","timecycleMods4":true,"coreYpt":false,"minimap":true},
+    {"sample":"nowyreduks_palette_cleanline","timecycleMods4":true,"coreYpt":false,"minimap":true},
+    {"sample":"sixteenpackv2fix","timecycleMods4":false,"coreYpt":false,"minimap":true}
+  ],
+  "conflicts": [],
+  "conclusion": "Local file-presence evidence supports the timecycle_mods_4.xml and JPEXS minimap target families and does not conflict with the cited summaries. Absence in a sample is not treated as negative evidence."
+}

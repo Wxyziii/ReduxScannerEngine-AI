@@ -1,0 +1,105 @@
+{
+  "schemaVersion": "redux-maker.classifier-eval.v2",
+  "status": "ready",
+  "datasetSize": 1992,
+  "knowledgebaseEntryCount": 11,
+  "seedExampleCount": 40,
+  "syntheticTrainingCount": 1920,
+  "independentHoldoutCount": 32,
+  "syntheticTemplateAccuracy": 1.0,
+  "independentHoldoutAccuracy": 1.0,
+  "perLabelAccuracy": {
+    "core_ypt_hit_effect": 1.0,
+    "core_ypt_particle_blank": 1.0,
+    "core_ypt_tracer": 1.0,
+    "minimap_editor": 1.0,
+    "package_builder": 1.0,
+    "timecycle_kill_effect": 1.0,
+    "timecycle_sky": 1.0,
+    "validation": 1.0
+  },
+  "confusionMatrix": {
+    "core_ypt_hit_effect": {
+      "core_ypt_hit_effect": 4,
+      "core_ypt_particle_blank": 0,
+      "core_ypt_tracer": 0,
+      "minimap_editor": 0,
+      "package_builder": 0,
+      "timecycle_kill_effect": 0,
+      "timecycle_sky": 0,
+      "validation": 0
+    },
+    "core_ypt_particle_blank": {
+      "core_ypt_hit_effect": 0,
+      "core_ypt_particle_blank": 4,
+      "core_ypt_tracer": 0,
+      "minimap_editor": 0,
+      "package_builder": 0,
+      "timecycle_kill_effect": 0,
+      "timecycle_sky": 0,
+      "validation": 0
+    },
+    "core_ypt_tracer": {
+      "core_ypt_hit_effect": 0,
+      "core_ypt_particle_blank": 0,
+      "core_ypt_tracer": 4,
+      "minimap_editor": 0,
+      "package_builder": 0,
+      "timecycle_kill_effect": 0,
+      "timecycle_sky": 0,
+      "validation": 0
+    },
+    "minimap_editor": {
+      "core_ypt_hit_effect": 0,
+      "core_ypt_particle_blank": 0,
+      "core_ypt_tracer": 0,
+      "minimap_editor": 4,
+      "package_builder": 0,
+      "timecycle_kill_effect": 0,
+      "timecycle_sky": 0,
+      "validation": 0
+    },
+    "package_builder": {
+      "core_ypt_hit_effect": 0,
+      "core_ypt_particle_blank": 0,
+      "core_ypt_tracer": 0,
+      "minimap_editor": 0,
+      "package_builder": 4,
+      "timecycle_kill_effect": 0,
+      "timecycle_sky": 0,
+      "validation": 0
+    },
+    "timecycle_kill_effect": {
+      "core_ypt_hit_effect": 0,
+      "core_ypt_particle_blank": 0,
+      "core_ypt_tracer": 0,
+      "minimap_editor": 0,
+      "package_builder": 0,
+      "timecycle_kill_effect": 4,
+      "timecycle_sky": 0,
+      "validation": 0
+    },
+    "timecycle_sky": {
+      "core_ypt_hit_effect": 0,
+      "core_ypt_particle_blank": 0,
+      "core_ypt_tracer": 0,
+      "minimap_editor": 0,
+      "package_builder": 0,
+      "timecycle_kill_effect": 0,
+      "timecycle_sky": 4,
+      "validation": 0
+    },
+    "validation": {
+      "core_ypt_hit_effect": 0,
+      "core_ypt_particle_blank": 0,
+      "core_ypt_tracer": 0,
+      "minimap_editor": 0,
+      "package_builder": 0,
+      "timecycle_kill_effect": 0,
+      "timecycle_sky": 0,
+      "validation": 4
+    }
+  },
+  "failureExamples": [],
+  "conflictReport": "data/conflict_report.json"
+}

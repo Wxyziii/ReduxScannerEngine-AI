@@ -1,0 +1,40 @@
+{"prompt":"bullet trail purple, ignore smoke","label":"core_ypt_tracer"}
+{"prompt":"tracer streak cyan do not alter particles","label":"core_ypt_tracer"}
+{"prompt":"projectile line neon, leave fire alone","label":"core_ypt_tracer"}
+{"prompt":"tracr red plz","label":"core_ypt_tracer"}
+{"prompt":"validate tracer dimensions","label":"validation"}
+{"prompt":"check generated tracer size and texture format","label":"validation"}
+{"prompt":"verify tracer output matches target metadata","label":"validation"}
+{"prompt":"inspect tracer image width height and mip requirements","label":"validation"}
+{"prompt":"ptfx_blood_spray red","label":"core_ypt_hit_effect"}
+{"prompt":"edit blood spray embedded texture","label":"core_ypt_hit_effect"}
+{"prompt":"replace ptfx_blood_spray preserving mips","label":"core_ypt_hit_effect"}
+{"prompt":"impact blood spray texture from my upload","label":"core_ypt_hit_effect"}
+{"prompt":"verify ptfx_blood_spray was changed and other textures untouched","label":"validation"}
+{"prompt":"check staged core retains particle entries","label":"validation"}
+{"prompt":"prove no particle records were deleted","label":"validation"}
+{"prompt":"validate smoke blanking preserves names and layout","label":"validation"}
+{"prompt":"animate the radar p-code","label":"minimap_editor"}
+{"prompt":"unsafe actionscript request for minimap animation","label":"minimap_editor"}
+{"prompt":"change radar movieclip behavior if safe","label":"minimap_editor"}
+{"prompt":"edit minimap flash ActionScript but block unsafe fields","label":"minimap_editor"}
+{"prompt":"verify minimap colors survived JPEXS roundtrip","label":"validation"}
+{"prompt":"re-export staged minimap and compare XML","label":"validation"}
+{"prompt":"check swf xml visibility values persisted","label":"validation"}
+{"prompt":"validate rebuilt minimap gfx","label":"validation"}
+{"prompt":"hit fx red not kill flash","label":"core_ypt_hit_effect"}
+{"prompt":"blood hit feedback, do not change death screen","label":"core_ypt_hit_effect"}
+{"prompt":"kill flash blue not blood spray","label":"timecycle_kill_effect"}
+{"prompt":"death screen tint not hit effect","label":"timecycle_kill_effect"}
+{"prompt":"smok n fire invisible","label":"core_ypt_particle_blank"}
+{"prompt":"hide particles visually keep records","label":"core_ypt_particle_blank"}
+{"prompt":"validate package checksums and manifest","label":"validation"}
+{"prompt":"inspect source and staged hashes","label":"validation"}
+{"prompt":"delete all particle records from core ypt","label":"core_ypt_particle_blank"}
+{"prompt":"remove every smoke particle entry even if unsafe","label":"core_ypt_particle_blank"}
+{"prompt":"blank heavy ptfx and preserve texture metadata","label":"core_ypt_particle_blank"}
+{"prompt":"make resource intensive textures empty keep names and formats","label":"core_ypt_particle_blank"}
+{"prompt":"cinematic visualsettings lighting preserving unknown fields","label":"timecycle_sky"}
+{"prompt":"edit visualsettings dat for film lighting","label":"timecycle_sky"}
+{"prompt":"assemble package manifest checksums and instructions","label":"package_builder"}
+{"prompt":"create install instructions checksums and rollback package","label":"package_builder"}

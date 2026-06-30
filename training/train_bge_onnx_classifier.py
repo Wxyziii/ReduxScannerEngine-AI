@@ -33,7 +33,7 @@ def main()->None:
     from sklearn.metrics import accuracy_score,classification_report,confusion_matrix
     from skl2onnx import convert_sklearn
     from skl2onnx.common.data_types import FloatTensorType
-    train=read_jsonl(args.data_dir/"router_train.jsonl");validation=read_jsonl(args.data_dir/"router_validation.jsonl");test=read_jsonl(args.data_dir/"router_test.jsonl")
+    train=read_jsonl(args.data_dir/"router_train.jsonl");development=Path("data/realistic_training_examples.jsonl");development_rows=read_jsonl(development) if development.is_file() else [];train.extend(development_rows*20);validation=read_jsonl(args.data_dir/"router_validation.jsonl");test=read_jsonl(args.data_dir/"router_test.jsonl")
     tokenizer=AutoTokenizer.from_pretrained(MODEL_ID,revision=MODEL_REVISION);encoder=AutoModel.from_pretrained(MODEL_ID,revision=MODEL_REVISION)
     x_train=embed(train,tokenizer,encoder);x_validation=embed(validation,tokenizer,encoder);x_test=embed(test,tokenizer,encoder)
     y_train=[row["label"] for row in train];y_validation=[row["label"] for row in validation];y_test=[row["label"] for row in test]

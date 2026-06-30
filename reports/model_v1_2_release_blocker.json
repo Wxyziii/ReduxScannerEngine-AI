@@ -1,0 +1,16 @@
+{
+  "schemaVersion": "redux-maker.blocker.v1",
+  "requirementBlocked": "Publish the improved Redux BGE ONNX Router v1.2 head and labels at an anonymous checksum-pinned endpoint, then update the app manifest.",
+  "repoModuleFileAffected": "ReduxScannerEngine-AI dist/models-v1.2.0 and model_manifest.json; Redux Maker App model manifest mirror",
+  "approachesAttempted": [
+    "Trained dist/models-v1.2.0/redux-router-head-v1.onnx and labels",
+    "Ran untouched 32-prompt independent holdout: 100%",
+    "Ran gh auth status",
+    "Checked GH_TOKEN, GITHUB_TOKEN, and HF_TOKEN availability",
+    "Verified existing models-v1.1.0 release asset anonymously with HTTP 200"
+  ],
+  "exactErrorOrReason": "GitHub CLI reports not logged into any hosts; no GitHub or Hugging Face API token exists. Git push credentials do not expose an authenticated release-upload API session.",
+  "blockerType": "missing-tool-authentication",
+  "fallbackImplemented": "The existing checksum-pinned v1.1.0 classifier release is public and anonymously downloadable (HTTP 200, 16013 bytes). Improved v1.2 weights remain ignored under dist/ and are not committed.",
+  "whatMarcelMustProvideOrDecide": "Run gh auth login for Wxyziii or provide an approved public upload endpoint. Then upload the two v1.2 artifacts and allow the manifests to be updated to SHA-256 9be1ae6c7ae889f1ad1d80e4ce4beca3857348132aa25c8fa43f1259b4ee01fc and labels SHA-256 3de3c5c975adfdae232118ce24fd2bb6bc05f2f80f4343852921d356a6c764b9."
+}

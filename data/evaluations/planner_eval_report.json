@@ -1,0 +1,9 @@
+{
+  "schemaVersion": "redux-maker.planner-eval.v1",
+  "caseCount": 11,
+  "accuracy": 1.0,
+  "strictJsonSchemaPassed": true,
+  "multiModuleCases": 3,
+  "failures": [],
+  "status": "ready"
+}

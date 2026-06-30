@@ -1,0 +1,32 @@
+{"prompt":"yo can u make the bullet lines violet n skinny","label":"core_ypt_tracer","category":"slang_misspelled"}
+{"prompt":"my shots need cyan streaks like the reference I uploaded","label":"core_ypt_tracer","category":"uploaded_file_intent"}
+{"prompt":"tracr purple pls dont touch the smoke","label":"core_ypt_tracer","category":"misspelled_boundary"}
+{"prompt":"replace the projectile trail texture but keep its original dimensions","label":"core_ypt_tracer","category":"technical"}
+{"prompt":"I want the blood splash when I hit someone to be deep red","label":"core_ypt_hit_effect","category":"natural_language"}
+{"prompt":"make hit efect magenta, not the kill-screen flash","label":"core_ypt_hit_effect","category":"misspelled_boundary"}
+{"prompt":"use my impact spray picture for Hit Effect","label":"core_ypt_hit_effect","category":"uploaded_file_intent"}
+{"prompt":"change ptfx_blood_spray but preserve mipmaps","label":"core_ypt_hit_effect","category":"technical"}
+{"prompt":"nuke every particle record from core.ypt","label":"core_ypt_particle_blank","category":"unsafe_request"}
+{"prompt":"get rid of smoke visually without deleting entries","label":"core_ypt_particle_blank","category":"safe_natural_language"}
+{"prompt":"fire fx eats fps make em invisible","label":"core_ypt_particle_blank","category":"slang"}
+{"prompt":"blank the heavy ptfx textures and keep names sizes formats","label":"core_ypt_particle_blank","category":"technical"}
+{"prompt":"night should feel colder with thick fog and low exposure","label":"timecycle_sky","category":"indirect"}
+{"prompt":"make w_clear.xml look like a dark overcast morning","label":"timecycle_sky","category":"file_specific"}
+{"prompt":"sky blue-grey, less bloom, can still see far","label":"timecycle_sky","category":"partial"}
+{"prompt":"edit visualsettings for cinematic lighting but leave unknown keys","label":"timecycle_sky","category":"technical"}
+{"prompt":"blue blink after a frag, not the blood hit spray","label":"timecycle_kill_effect","category":"boundary_slang"}
+{"prompt":"killefect should flash cyan for a moment","label":"timecycle_kill_effect","category":"misspelled"}
+{"prompt":"tune MP_Killstreak in timecycle 4 to purple","label":"timecycle_kill_effect","category":"technical"}
+{"prompt":"make the death confirmation tint less intense","label":"timecycle_kill_effect","category":"indirect"}
+{"prompt":"hp digits on, armour bar orange, damage flash off","label":"minimap_editor","category":"multi_control"}
+{"prompt":"I uploaded swf.xml move the health numbers if it is safe","label":"minimap_editor","category":"uploaded_file_intent"}
+{"prompt":"minmap bars purple pls","label":"minimap_editor","category":"misspelled"}
+{"prompt":"inject arbitrary p-code to animate the radar","label":"minimap_editor","category":"unsafe_request"}
+{"prompt":"zip all accepted staged changes with rollback notes","label":"package_builder","category":"natural_language"}
+{"prompt":"give me the ReduxMaker output but no GTA backup files","label":"package_builder","category":"privacy"}
+{"prompt":"assemble manifest checksums and install instructions","label":"package_builder","category":"technical"}
+{"prompt":"export what I approved, skip rejected edits","label":"package_builder","category":"acceptance"}
+{"prompt":"does the staged core still contain every particle entry","label":"validation","category":"specific_check"}
+{"prompt":"check that the generated tracer is the exact target size","label":"validation","category":"specific_check"}
+{"prompt":"prove original update.rpf hash did not move","label":"validation","category":"source_safety"}
+{"prompt":"re-export the rebuilt gfx and confirm the XML colors survived","label":"validation","category":"roundtrip"}
