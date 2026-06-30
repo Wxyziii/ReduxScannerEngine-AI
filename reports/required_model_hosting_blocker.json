@@ -1,0 +1,17 @@
+{
+  "schemaVersion": "redux-maker.blocker.v1",
+  "requirementBlocked": "Host every required Redux Maker model weight in ReduxScannerEngine-AI GitHub Releases and use those release URLs in the v1.0 model manager.",
+  "repoModuleFileAffected": "ReduxScannerEngine-AI/model_manifest.json and Redux-Maker-App/src/lib/core/modelManager.mjs",
+  "approachesAttempted": [
+    "Verified all five required installed model records and checksums locally",
+    "Ran the real planner, classifier, text/config, image, and vision workers successfully",
+    "Verified the existing classifier-router-v1 models-v1.1.0 GitHub Release asset anonymously",
+    "Ran gh auth status",
+    "Checked GH_TOKEN, GITHUB_TOKEN, and HF_TOKEN availability",
+    "Kept model weights out of Git and pinned upstream revisions/checksums"
+  ],
+  "exactErrorOrReason": "GitHub CLI is not authenticated and no release-upload token is available. Planner and text weights are currently fetched from pinned Hugging Face URLs; image-worker-v1 and vision-validator-v1 are approximately 5.5 GB and 4.5 GB model trees and therefore require multiple split GitHub Release assets rather than one release asset.",
+  "blockerType": "missing-tool-authentication-and-distribution-decision",
+  "fallbackImplemented": "The built-in model manager downloads the four upstream models directly from their official Apache-2.0/MIT Hugging Face repositories at pinned revisions, records local tree checksums, refuses checksum failures, and uses the anonymously downloadable GitHub Release for the Redux-owned classifier head.",
+  "whatMarcelMustProvideOrDecide": "Run gh auth login for the Wxyziii account and approve publishing split GitHub Release assets for all four upstream model packs, or explicitly accept the legally safe pinned upstream-registry fallback as the v1.0 distribution design. Without one of those decisions the written GitHub-Releases-only requirement is not satisfied."
+}
